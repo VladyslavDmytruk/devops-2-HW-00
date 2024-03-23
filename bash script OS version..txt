@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Function to display OS version
+get_os_version() {
+    lsb_release -a 2>/dev/null || uname -a
+}
+
+# Function to display users with bash shell
+get_bash_users() {
+    grep -E '/bash$' /etc/passwd | cut -d: -f1
+}
+
+# Function to display open ports
+get_open_ports() {
+    sudo netstat -tuln || echo "Error: Unable to retrieve open ports."
+}
+
+# Main function
+main() {
+    echo "OS Version:"
+    get_os_version
+    echo
+
+    echo "Users with Bash shell:"
+    get_bash_users
+    echo
+
+    echo "Open Ports:"
+    get_open_ports
+}
+
+main
